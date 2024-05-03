@@ -1,0 +1,26 @@
+.selected-row {
+  background-color: #ffcccc;
+}
+.ant-table-tbody > tr.ant-table-row:hover > td {
+    background: none !important;
+}
+.ant-table-wrapper {
+    height: 100%;
+    overflow: hidden;
+  
+    .ant-spin-nested-loading {
+      height: 100%;
+  
+      .ant-spin-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+          
+          .ant-table {
+              max-height: 90%;
+              overflow: auto;
+          }
+      }
+    }
+  }

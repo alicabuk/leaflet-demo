@@ -1,8 +1,19 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MarkersTable from "./components/MarkersTable";
+import { useState } from "react";
 
 function App() {
+  const [marker, setMarker] = useState(null);
+
+  const handleMarkerAdd = (latLng) => {
+    setMarker(latLng);
+  };
+
+  const handleMarkerRemove = () => {
+    setMarker(null);
+  };
+
   return (
     <div
       style={{
@@ -23,10 +34,16 @@ function App() {
         <div className="leaflet-top leaflet-right">
           <div className="leaflet-control leaflet-bar">
             <div className="side-panel">
-              <MarkersTable />
+              <MarkersTable
+                onMarkerAdd={handleMarkerAdd}
+                onMarkerRemove={handleMarkerRemove}
+              />
             </div>
           </div>
         </div>
+        {marker && (
+          <Marker position={[marker.lat, marker.lng]}></Marker>
+        )}
       </MapContainer>
     </div>
   );

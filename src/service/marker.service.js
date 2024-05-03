@@ -24,11 +24,27 @@ const markerService = {
   async deleteMarker(id) {
     try {
       const response = await axios.post(API_URL + "/deletemarker", {
-        id: id
+        id: id,
       });
       return response.data;
     } catch (error) {
       throw new Error("Delete Marker -> Error sending data to API");
+    }
+  },
+
+  async downloadMarkerList() {
+    try {
+      const response = await axios.get(API_URL + "/download", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "data.json");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error downloading JSON file:", error.message);
     }
   },
 };
